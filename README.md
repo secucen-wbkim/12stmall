@@ -105,9 +105,14 @@ http POST http://localhost:8081/orders userId=wbkim productId=1 productName=note
 제품 배송을 완료
 http PUT http://localhost:8082/deliveries/1/completedelivery courier=gdhong
 
+제품 재고 조회시 재고가 줄어든게 보여야함
+http GET http://localhost:8083/inventories/1
+
 제품을 환불
 http DELETE http://localhost:8081/orders/1
 
 제품환불 완료
 http PUT http://localhost:8082/deliveries/1/returndelivery courier=gdhong
 
+제품 재고 조회시 재고가 늘어난게 보여야함
+http GET http://localhost:8083/inventories/1
