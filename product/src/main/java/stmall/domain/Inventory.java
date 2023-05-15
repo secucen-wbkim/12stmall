@@ -23,11 +23,11 @@ public class Inventory {
 
     @PostUpdate
     public void onPostUpdate() {
-        StockDecreased stockDecreased = new StockDecreased(this);
-        stockDecreased.publishAfterCommit();
+        // StockDecreased stockDecreased = new StockDecreased(this);
+        // stockDecreased.publishAfterCommit();
 
-        StockIncreased stockIncreased = new StockIncreased(this);
-        stockIncreased.publishAfterCommit();
+        // StockIncreased stockIncreased = new StockIncreased(this);
+        // stockIncreased.publishAfterCommit();
     }
 
     public static InventoryRepository repository() {

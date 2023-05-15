@@ -89,3 +89,25 @@ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/d
 sudo mv /tmp/eksctl /usr/local/bin
 ```
 
+
+
+
+--
+
+시나리오
+
+먼저 inventory에 제품을 추가한다.
+http POST http://localhost:8083/inventories productName=notebook stock=100
+
+제품을 주문
+http POST http://localhost:8081/orders userId=wbkim productId=1 productName=notebook qty=3
+
+제품 배송을 완료
+http PUT http://localhost:8082/deliveries/1/completedelivery courier=gdhong
+
+제품을 환불
+http DELETE http://localhost:8081/orders/1
+
+제품환불 완료
+http PUT http://localhost:8082/deliveries/1/returndelivery courier=gdhong
+

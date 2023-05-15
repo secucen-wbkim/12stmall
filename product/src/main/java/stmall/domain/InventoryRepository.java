@@ -1,5 +1,6 @@
 package stmall.domain;
 
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import stmall.domain.*;
@@ -10,3 +11,4 @@ import stmall.domain.*;
 )
 public interface InventoryRepository
     extends PagingAndSortingRepository<Inventory, Long> {}
+    
