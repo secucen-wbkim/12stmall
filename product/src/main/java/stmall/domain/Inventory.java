@@ -46,18 +46,18 @@ public class Inventory {
         stockIncreased.publishAfterCommit();
         */
 
-        /** Example 2:  finding and process
+        //** Example 2:  finding and process
         
-        repository().findById(deliveryReturned.get???()).ifPresent(inventory->{
+        repository().findById(deliveryReturned.getProductId()).ifPresent(inventory->{
             
-            inventory // do something
+            inventory.setStock(inventory.getStock() + deliveryReturned.getQty());
             repository().save(inventory);
 
             StockIncreased stockIncreased = new StockIncreased(inventory);
             stockIncreased.publishAfterCommit();
 
          });
-        */
+        
 
     }
 
@@ -70,18 +70,18 @@ public class Inventory {
         stockDecreased.publishAfterCommit();
         */
 
-        /** Example 2:  finding and process
+        //** Example 2:  finding and process
         
-        repository().findById(deliveryCompleted.get???()).ifPresent(inventory->{
+        repository().findById(deliveryCompleted.getProductId()).ifPresent(inventory->{
             
-            inventory // do something
+            inventory.setStock(inventory.getStock() - deliveryCompleted.getQty());
             repository().save(inventory);
 
             StockDecreased stockDecreased = new StockDecreased(inventory);
             stockDecreased.publishAfterCommit();
 
          });
-        */
+        
 
     }
 }
