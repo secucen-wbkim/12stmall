@@ -94,6 +94,11 @@ sudo mv /tmp/eksctl /usr/local/bin
 
 --
 
+kafka 메시지 확인
+cd kafka
+docker-compose exec -it kafka /bin/bash
+/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic stmall
+
 시나리오
 
 먼저 inventory에 제품을 추가한다.
