@@ -139,3 +139,59 @@ kubectl exec --tty -i my-kafka-client -- bash
 
 # CONSUMER:
 kafka-console-consumer.sh --bootstrap-server my-kafka:9092 --topic stmall --from-beginning
+
+# siege
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: siege
+spec:
+  containers:
+  - name: siege
+    image: apexacme/siege-nginx
+EOF
+
+kubectl exec -it siege -- /bin/bash
+siege -c1 -t2S -v http://order:8080/orders
+
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+설정으로 health check가 가능하게 되어있다.
+
+readinessProbe에 정의한 대로 상태체크를 하여 새로운 버전으로 이동
+livenessProbe에 정의한 주기에 따라 체크하여 문제가 있을시 재기동
+
+liveness 테스트
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+EOF
+
+상태확인
+kubectl describe po liveness-exec
+
+k scale deploy order --replicas=1
