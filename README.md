@@ -121,3 +121,21 @@ http PUT http://localhost:8082/deliveries/1/returndelivery courier=gdhong
 
 제품 재고 조회시 재고가 늘어난게 보여야함
 http GET http://localhost:8083/inventories/1
+
+
+kubenates kafka 설치
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm install my-kafka bitnami/kafka
+
+kafka 메시지 확인
+kubectl run my-kafka-client --restart='Never' --image docker.io/bitnami/kafka:2.8.0-debian-10-r0 --command -- sleep infinity
+kubectl exec --tty -i my-kafka-client -- bash
+
+# CONSUMER:
+kafka-console-consumer.sh --bootstrap-server my-kafka:9092 --topic stmall --from-beginning
